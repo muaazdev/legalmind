@@ -9,9 +9,9 @@ from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
 import re
 
-from langchain.schema import Document
+from langchain_core.documents import Document
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 
 
 @dataclass
@@ -73,7 +73,7 @@ class ShepardizerAgent:
     ):
         self.llm = ChatOpenAI(
             model=model_name,
-            openai_api_key=openai_api_key,
+            api_key=openai_api_key,
             temperature=0.0
         )
         

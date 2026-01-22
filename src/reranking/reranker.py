@@ -8,7 +8,7 @@ from typing import List, Optional
 from abc import ABC, abstractmethod
 import cohere
 
-from langchain.schema import Document
+from langchain_core.documents import Document
 
 
 class BaseReranker(ABC):
@@ -29,13 +29,13 @@ class CohereReranker(BaseReranker):
     """
     Cohere Rerank API for high-quality reranking
     """
-    
+
     def __init__(
         self,
         api_key: str,
-        model: str = "rerank-english-v3.0"
+        model: str = "rerank-v3.5"
     ):
-        self.client = cohere.Client(api_key)
+        self.client = cohere.ClientV2(api_key)
         self.model = model
     
     def rerank(
@@ -126,11 +126,11 @@ class RerankerPipeline:
     """
     Unified reranking pipeline with fallback support
     """
-    
+
     def __init__(
         self,
         cohere_api_key: Optional[str] = None,
-        cohere_model: str = "rerank-english-v3.0",
+        cohere_model: str = "rerank-v3.5",
         use_fallback: bool = True
     ):
         self.primary_reranker: Optional[BaseReranker] = None
@@ -175,7 +175,7 @@ class RerankerPipeline:
 # Factory function
 def create_reranker(
     cohere_api_key: Optional[str] = None,
-    model: str = "rerank-english-v3.0"
+    model: str = "rerank-v3.5"
 ) -> RerankerPipeline:
     """Factory function to create reranker pipeline"""
     return RerankerPipeline(

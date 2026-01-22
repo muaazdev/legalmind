@@ -1,34 +1,35 @@
 # Core LLM & RAG
-langchain>=0.1.0
-langchain-openai>=0.0.5
-langchain-community>=0.0.10
-openai>=1.10.0
-cohere>=4.40
+langchain
+langchain-openai
+langchain-community
+langchain-chroma
+openai
+cohere
 
 # Vector Store & Embeddings
-chromadb>=0.4.22
-sentence-transformers>=2.2.2
+chromadb
+sentence-transformers
 
 # BM25 for keyword search
-rank-bm25>=0.2.2
+rank-bm25
 
 # Document Processing
-pypdf>=3.17.0
-unstructured>=0.12.0
+pypdf
+unstructured
 
 # Caching
-redis>=5.0.0
+redis
 
 # Evaluation
-ragas>=0.1.0
-deepeval>=0.21.0
+ragas
+deepeval
 
 # Testing
-pytest>=7.4.0
-pytest-asyncio>=0.21.0
+pytest
+pytest-asyncio
 
 # Utilities
-python-dotenv>=1.0.0
-pydantic>=2.5.0
-tiktoken>=0.5.0
-numpy>=1.24.0
+python-dotenv
+pydantic
+tiktoken
+numpy

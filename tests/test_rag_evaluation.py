@@ -128,7 +128,7 @@ class TestComplianceAuditor:
         """
         Test that auditor correctly identifies hallucinated content
         """
-        from langchain.schema import Document
+        from langchain_core.documents import Document
         
         # Context only mentions $1M liability
         context = [
@@ -153,7 +153,7 @@ class TestComplianceAuditor:
         """
         Test that auditor correctly validates faithful content
         """
-        from langchain.schema import Document
+        from langchain_core.documents import Document
         
         context = [
             Document(
@@ -189,7 +189,7 @@ class TestShepardizer:
         """
         Test that Shepardizer validates correct citations
         """
-        from langchain.schema import Document
+        from langchain_core.documents import Document
         
         context = [
             Document(
@@ -212,7 +212,7 @@ class TestShepardizer:
         """
         Test that Shepardizer detects citations to non-existent documents
         """
-        from langchain.schema import Document
+        from langchain_core.documents import Document
         
         context = [
             Document(
@@ -249,7 +249,7 @@ class TestAdversarialLawyer:
         """
         Test that Adversarial Lawyer generates test cases from documents
         """
-        from langchain.schema import Document
+        from langchain_core.documents import Document
         
         sample_docs = [
             Document(
@@ -282,8 +282,8 @@ class TestEndToEndPipeline:
         """
         if not OPENAI_API_KEY:
             pytest.skip("OPENAI_API_KEY not set")
-        
-        from langchain.schema import Document
+
+        from langchain_core.documents import Document
         
         # Create LegalMind instance
         legalmind = create_legalmind(

@@ -11,7 +11,7 @@ from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
 import os
 
-from langchain.schema import Document
+from langchain_core.documents import Document
 
 # Import components
 from src.ingestion.pipeline import DocumentIngestionPipeline, create_ingestion_pipeline

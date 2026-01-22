@@ -8,12 +8,11 @@ from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
 import numpy as np
 
-from langchain.schema import Document
+from langchain_core.documents import Document
 from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from rank_bm25 import BM25Okapi
 import chromadb
-from chromadb.config import Settings
 
 
 @dataclass
@@ -43,20 +42,16 @@ class HybridRetriever:
         self.embedding_model = embedding_model
         self.persist_directory = persist_directory
         self.collection_name = collection_name
-        
+
         # Initialize embeddings
         self.embeddings = OpenAIEmbeddings(
             model=embedding_model,
-            openai_api_key=openai_api_key
+            api_key=openai_api_key
         )
-        
-        # Initialize ChromaDB
-        self.chroma_client = chromadb.Client(Settings(
-            chroma_db_impl="duckdb+parquet",
-            persist_directory=persist_directory,
-            anonymized_telemetry=False
-        ))
-        
+
+        # Initialize ChromaDB with PersistentClient
+        self.chroma_client = chromadb.PersistentClient(path=persist_directory)
+
         self.vector_store: Optional[Chroma] = None
         self.bm25_index: Optional[BM25Okapi] = None
         self.documents: List[Document] = []
@@ -71,13 +66,13 @@ class HybridRetriever:
         Index documents in both vector store and BM25
         """
         self.documents = documents
-        
-        # Create vector store
+
+        # Create vector store using the client
         self.vector_store = Chroma.from_documents(
             documents=documents,
             embedding=self.embeddings,
             collection_name=self.collection_name,
-            persist_directory=self.persist_directory
+            client=self.chroma_client
         )
         
         # Create BM25 index
@@ -93,7 +88,7 @@ class HybridRetriever:
         self.vector_store = Chroma(
             collection_name=self.collection_name,
             embedding_function=self.embeddings,
-            persist_directory=self.persist_directory
+            client=self.chroma_client
         )
         
         # Retrieve all documents for BM25

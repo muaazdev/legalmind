@@ -10,9 +10,9 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
-from langchain.schema import Document
+from langchain_core.documents import Document
 import tiktoken
 
 

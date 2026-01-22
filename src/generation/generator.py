@@ -8,9 +8,9 @@ from typing import List, Optional, Dict, Any
 from dataclasses import dataclass
 import json
 
-from langchain.schema import Document
+from langchain_core.documents import Document
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
 
 
 @dataclass
@@ -69,7 +69,7 @@ class LegalGenerator:
     ):
         self.llm = ChatOpenAI(
             model=model_name,
-            openai_api_key=openai_api_key,
+            api_key=openai_api_key,
             temperature=temperature
         )
         
