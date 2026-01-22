@@ -1,0 +1,100 @@
+NON-DISCLOSURE AGREEMENT
+
+This Non-Disclosure Agreement ("NDA") is entered into as of February 15, 2024, by and between:
+
+DISCLOSING PARTY: Acme Corporation ("Discloser")
+RECEIVING PARTY: Innovation Partners Inc. ("Recipient")
+
+RECITALS
+
+WHEREAS, Discloser possesses certain confidential and proprietary information relating to its business operations, technology, and strategic plans;
+
+WHEREAS, Recipient desires to receive such information for the purpose of evaluating a potential business relationship;
+
+NOW, THEREFORE, in consideration of the mutual covenants contained herein, the parties agree as follows:
+
+1. DEFINITION OF CONFIDENTIAL INFORMATION
+
+1.1 "Confidential Information" shall mean any and all information disclosed by Discloser to Recipient, whether oral, written, or electronic, including but not limited to:
+
+    (a) Trade secrets, inventions, and patent applications
+    (b) Software code, algorithms, and technical specifications
+    (c) Business plans, strategies, and financial projections
+    (d) Customer lists, pricing information, and marketing plans
+    (e) Employee information and organizational charts
+    (f) Any information marked as "Confidential" or "Proprietary"
+
+1.2 Confidential Information shall not include information that:
+    (a) Is or becomes publicly available through no fault of Recipient
+    (b) Was known to Recipient prior to disclosure
+    (c) Is independently developed by Recipient without use of Confidential Information
+    (d) Is disclosed to Recipient by a third party with the right to disclose
+
+2. OBLIGATIONS OF RECIPIENT
+
+2.1 Non-Disclosure: Recipient shall not disclose Confidential Information to any third party without prior written consent of Discloser.
+
+2.2 Limited Use: Recipient shall use Confidential Information solely for the purpose of evaluating a potential business relationship.
+
+2.3 Protection: Recipient shall protect Confidential Information using the same degree of care it uses for its own confidential information, but no less than reasonable care.
+
+2.4 Access Limitation: Recipient shall limit access to Confidential Information to employees who have a need to know and who are bound by confidentiality obligations.
+
+3. PERMITTED DISCLOSURES
+
+3.1 Legal Requirement: Recipient may disclose Confidential Information if required by law, provided that Recipient:
+    (a) Gives Discloser prompt notice of such requirement
+    (b) Cooperates with Discloser in seeking protective measures
+    (c) Discloses only the minimum information required
+
+4. RETURN OF INFORMATION
+
+4.1 Upon termination of this NDA or upon Discloser's request, Recipient shall:
+    (a) Return all Confidential Information in tangible form
+    (b) Destroy all copies, notes, and derivatives
+    (c) Certify in writing that all materials have been returned or destroyed
+
+5. NO LICENSE OR WARRANTY
+
+5.1 No License: This NDA does not grant Recipient any license or rights to Confidential Information.
+
+5.2 No Warranty: Confidential Information is provided "AS IS" without warranty of any kind.
+
+5.3 No Obligation: This NDA does not obligate either party to enter into any business relationship.
+
+6. TERM AND TERMINATION
+
+6.1 Term: This NDA shall remain in effect for three (3) years from the Effective Date.
+
+6.2 Survival: The confidentiality obligations shall survive termination for a period of five (5) years.
+
+7. REMEDIES
+
+7.1 Injunctive Relief: Recipient acknowledges that breach of this NDA may cause irreparable harm. Discloser shall be entitled to seek injunctive relief without posting bond.
+
+7.2 Monetary Damages: Discloser may also seek monetary damages for any breach of this NDA.
+
+7.3 Attorney's Fees: The prevailing party in any dispute shall be entitled to recover reasonable attorney's fees.
+
+8. GENERAL PROVISIONS
+
+8.1 Governing Law: This NDA shall be governed by the laws of the State of Delaware.
+
+8.2 Entire Agreement: This NDA constitutes the entire agreement regarding confidentiality.
+
+8.3 Amendment: This NDA may only be amended in writing signed by both parties.
+
+8.4 Assignment: Neither party may assign this NDA without prior written consent.
+
+8.5 Severability: Invalid provisions shall be modified to be enforceable to the maximum extent permitted.
+
+8.6 Counterparts: This NDA may be executed in counterparts, each of which shall be an original.
+
+IN WITNESS WHEREOF, the parties have executed this NDA as of the date first written above.
+
+ACME CORPORATION                    INNOVATION PARTNERS INC.
+
+By: _________________________      By: _________________________
+Name: Robert Johnson               Name: Sarah Williams  
+Title: General Counsel             Title: CEO
+Date: February 15, 2024            Date: February 15, 2024

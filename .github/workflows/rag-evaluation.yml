@@ -1,0 +1,202 @@
+name: RAG Evaluation Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  PYTHON_VERSION: '3.10'
+  FAITHFULNESS_THRESHOLD: 0.9
+  CONTEXT_PRECISION_THRESHOLD: 0.8
+
+jobs:
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install linting dependencies
+        run: |
+          pip install flake8 black isort
+      
+      - name: Run linters
+        run: |
+          flake8 src/ tests/ --max-line-length=120 --ignore=E501,W503
+          black --check src/ tests/
+          isort --check-only src/ tests/
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+      
+      - name: Run unit tests (no API calls)
+        run: |
+          pytest tests/ -v -m "not integration" --ignore=tests/test_rag_evaluation.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+
+  rag-evaluation:
+    name: RAG Triad Evaluation
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+      
+      - name: Run RAG Evaluation Tests
+        run: |
+          pytest tests/test_rag_evaluation.py -v \
+            --tb=short \
+            -x \
+            2>&1 | tee evaluation_results.txt
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+      
+      - name: Check Faithfulness Threshold
+        run: |
+          echo "Checking if faithfulness score meets threshold..."
+          # This would parse test results and fail if below threshold
+          if grep -q "FAILED.*faithfulness" evaluation_results.txt; then
+            echo "❌ Faithfulness score below threshold!"
+            exit 1
+          fi
+          echo "✅ Faithfulness check passed"
+      
+      - name: Upload Evaluation Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: evaluation-results
+          path: evaluation_results.txt
+
+  golden-dataset-eval:
+    name: Golden Dataset Evaluation
+    runs-on: ubuntu-latest
+    needs: rag-evaluation
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Run Golden Dataset Evaluation
+        run: |
+          python -c "
+          import os
+          import json
+          from src.legalmind import create_legalmind
+          
+          # Initialize
+          lm = create_legalmind(
+              openai_api_key=os.getenv('OPENAI_API_KEY'),
+              cohere_api_key=os.getenv('COHERE_API_KEY')
+          )
+          
+          # Load golden dataset if exists
+          if os.path.exists('data/golden_dataset.json'):
+              with open('data/golden_dataset.json', 'r') as f:
+                  dataset = json.load(f)
+              
+              results = lm.batch_evaluate(dataset['test_cases'][:20])
+              
+              print('=== Golden Dataset Evaluation Results ===')
+              print(f\"Average Faithfulness: {results['aggregate_metrics']['avg_faithfulness']}\")
+              print(f\"Average Context Precision: {results['aggregate_metrics']['avg_context_precision']}\")
+              
+              # Fail if below threshold
+              if results['aggregate_metrics']['avg_faithfulness'] < ${{ env.FAITHFULNESS_THRESHOLD }}:
+                  print('❌ FAILED: Faithfulness below threshold')
+                  exit(1)
+              
+              print('✅ All metrics within acceptable range')
+          else:
+              print('No golden dataset found, skipping...')
+          "
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+
+  report:
+    name: Generate Report
+    runs-on: ubuntu-latest
+    needs: [rag-evaluation]
+    if: always()
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: evaluation-results
+          path: ./results
+        continue-on-error: true
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            let report = '## 🧪 RAG Evaluation Report\n\n';
+            
+            try {
+              const results = fs.readFileSync('./results/evaluation_results.txt', 'utf8');
+              const passed = !results.includes('FAILED');
+              
+              report += passed ? '✅ **All tests passed!**\n\n' : '❌ **Some tests failed**\n\n';
+              report += '```\n' + results.slice(0, 2000) + '\n```';
+            } catch (e) {
+              report += '⚠️ Could not load evaluation results';
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });

@@ -1,0 +1,139 @@
+PROFESSIONAL SERVICES AGREEMENT
+
+This Professional Services Agreement ("Agreement") is entered into as of January 1, 2024 ("Effective Date") by and between:
+
+CLIENT: Acme Corporation, a Delaware corporation ("Client")
+CONTRACTOR: TechServ Solutions LLC, a California limited liability company ("Contractor")
+
+1. SCOPE OF SERVICES
+
+1.1 The Contractor agrees to provide professional software development and consulting services as described in Exhibit A attached hereto (the "Services").
+
+1.2 Services shall include but are not limited to:
+    (a) Software architecture design and review
+    (b) Application development and coding
+    (c) Quality assurance and testing
+    (d) Technical documentation
+    (e) Training and knowledge transfer
+
+2. COMPENSATION
+
+2.1 Hourly Rate: The Client shall pay the Contractor at the rate of One Hundred Fifty Dollars ($150.00) per hour for Services rendered.
+
+2.2 Expenses: The Client shall reimburse the Contractor for reasonable pre-approved expenses incurred in connection with the Services.
+
+2.3 Invoicing: The Contractor shall submit invoices on a bi-weekly basis. Payment is due within thirty (30) days of invoice receipt.
+
+2.4 Late Payment: Overdue amounts shall accrue interest at the rate of 1.5% per month.
+
+3. TERM AND TERMINATION
+
+3.1 Initial Term: This Agreement shall commence on the Effective Date and continue for a period of twelve (12) months unless earlier terminated.
+
+3.2 Termination for Convenience: Either party may terminate this Agreement with thirty (30) days prior written notice.
+
+3.3 Termination for Cause: Either party may terminate immediately upon material breach that remains uncured for fifteen (15) days after written notice.
+
+3.4 Effect of Termination: Upon termination, Client shall pay for all Services rendered through the termination date.
+
+4. INTELLECTUAL PROPERTY
+
+4.1 Work Product: All work product created by Contractor specifically for Client under this Agreement shall be owned by Client.
+
+4.2 Pre-Existing IP: Contractor retains ownership of all pre-existing intellectual property and general-purpose tools.
+
+4.3 License: Contractor grants Client a perpetual, non-exclusive license to use any Contractor IP incorporated into deliverables.
+
+5. CONFIDENTIALITY
+
+5.1 Definition: "Confidential Information" means any non-public information disclosed by either party.
+
+5.2 Obligations: Each party agrees to maintain the confidentiality of the other party's Confidential Information for a period of five (5) years.
+
+5.3 Exceptions: Confidential Information does not include information that is publicly available or independently developed.
+
+6. LIABILITY AND INDEMNIFICATION
+
+6.1 Limitation of Liability: THE CONTRACTOR'S TOTAL LIABILITY SHALL NOT EXCEED THE TOTAL FEES PAID BY CLIENT IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
+
+6.2 Exclusion: IN NO EVENT SHALL EITHER PARTY BE LIABLE FOR INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.
+
+6.3 Indemnification: Contractor shall indemnify Client against third-party claims arising from Contractor's gross negligence or willful misconduct.
+
+7. REPRESENTATIONS AND WARRANTIES
+
+7.1 Authority: Each party represents that it has the authority to enter into this Agreement.
+
+7.2 Services: Contractor warrants that Services will be performed in a professional and workmanlike manner.
+
+7.3 No Conflicts: Contractor represents that performance of Services does not conflict with any other agreement.
+
+8. INSURANCE
+
+8.1 Contractor shall maintain:
+    (a) Professional Liability Insurance: $2,000,000 per occurrence
+    (b) General Liability Insurance: $1,000,000 per occurrence
+    (c) Workers' Compensation: As required by law
+
+9. DISPUTE RESOLUTION
+
+9.1 Negotiation: The parties shall first attempt to resolve disputes through good faith negotiation.
+
+9.2 Mediation: If negotiation fails, disputes shall be submitted to mediation in San Francisco, California.
+
+9.3 Arbitration: If mediation fails, disputes shall be resolved by binding arbitration under AAA rules.
+
+10. GOVERNING LAW
+
+10.1 This Agreement shall be governed by the laws of the State of California, without regard to conflicts of law principles.
+
+10.2 Venue: Any litigation shall be brought exclusively in the state or federal courts located in San Francisco County, California.
+
+11. MISCELLANEOUS
+
+11.1 Entire Agreement: This Agreement constitutes the entire agreement between the parties.
+
+11.2 Amendments: This Agreement may only be amended in writing signed by both parties.
+
+11.3 Assignment: Neither party may assign this Agreement without prior written consent.
+
+11.4 Force Majeure: Neither party shall be liable for delays caused by circumstances beyond reasonable control, including natural disasters, war, terrorism, or government actions.
+
+11.5 Severability: If any provision is found unenforceable, the remaining provisions shall continue in effect.
+
+11.6 Notices: All notices shall be in writing and delivered to the addresses set forth below.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement as of the Effective Date.
+
+ACME CORPORATION                    TECHSERV SOLUTIONS LLC
+
+By: _________________________      By: _________________________
+Name: John Smith                   Name: Jane Doe
+Title: Chief Executive Officer     Title: Managing Partner
+Date: January 1, 2024              Date: January 1, 2024
+
+---
+
+EXHIBIT A: SCOPE OF SERVICES
+
+Project: Enterprise Resource Planning System Implementation
+
+Phase 1: Discovery and Planning (Weeks 1-4)
+- Requirements gathering and analysis
+- System architecture design
+- Project timeline and milestone definition
+
+Phase 2: Development (Weeks 5-16)
+- Core module development
+- Database design and implementation
+- API development and integration
+
+Phase 3: Testing and QA (Weeks 17-20)
+- Unit testing and integration testing
+- User acceptance testing
+- Performance optimization
+
+Phase 4: Deployment and Training (Weeks 21-24)
+- Production deployment
+- User training sessions
+- Documentation delivery
