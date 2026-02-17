@@ -1,0 +1,52 @@
+# ============================================
+# Service: legalmind-service
+# ClusterIP service for internal communication
+# Exposes the API to other pods and Ingress
+# ============================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: legalmind-service
+  namespace: legalmind
+  labels:
+    app: legalmind
+    component: api
+spec:
+  type: ClusterIP  # Internal only, Ingress handles external
+  
+  selector:
+    app: legalmind
+    component: api
+  
+  ports:
+    - name: http
+      port: 80           # Service port
+      targetPort: 8000   # Container port
+      protocol: TCP
+
+---
+# ============================================
+# Service: legalmind-lb (LoadBalancer)
+# Alternative: Direct external access without Ingress
+# Useful for quick testing
+# ============================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: legalmind-lb
+  namespace: legalmind
+  labels:
+    app: legalmind
+    component: api
+spec:
+  type: LoadBalancer
+  
+  selector:
+    app: legalmind
+    component: api
+  
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+      protocol: TCP

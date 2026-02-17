@@ -1,0 +1,57 @@
+# ============================================
+# Ingress: legalmind-ingress
+# External access with path-based routing
+# Works with GKE Ingress Controller
+# ============================================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legalmind-ingress
+  namespace: legalmind
+  labels:
+    app: legalmind
+  annotations:
+    # GKE-specific annotations
+    kubernetes.io/ingress.class: "gce"
+    
+    # Health check configuration
+    cloud.google.com/backend-config: '{"default": "legalmind-backend-config"}'
+    
+    # Enable HTTPS redirect (optional, if you have a certificate)
+    # kubernetes.io/ingress.allow-http: "false"
+spec:
+  rules:
+    # Default rule (works with IP address)
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: legalmind-service
+                port:
+                  number: 80
+
+---
+# ============================================
+# BackendConfig: legalmind-backend-config
+# GKE-specific health check configuration
+# ============================================
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: legalmind-backend-config
+  namespace: legalmind
+spec:
+  healthCheck:
+    type: HTTP
+    requestPath: /health
+    port: 8000
+  
+  # Connection draining for graceful shutdown
+  connectionDraining:
+    drainingTimeoutSec: 30
+  
+  # Session affinity (optional)
+  # sessionAffinity:
+  #   affinityType: "CLIENT_IP"

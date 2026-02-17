@@ -46,14 +46,6 @@ class CohereReranker(BaseReranker):
     ) -> List[Document]:
         """
         Rerank documents using Cohere's cross-encoder model
-        
-        Args:
-            query: The search query
-            documents: List of documents to rerank
-            top_k: Number of top results to return
-        
-        Returns:
-            Reranked list of documents (top_k)
         """
         if not documents:
             return []
@@ -61,13 +53,12 @@ class CohereReranker(BaseReranker):
         # Extract text content for reranking
         doc_texts = [doc.page_content for doc in documents]
         
-        # Call Cohere Rerank API
+        # Call Cohere Rerank API (V2 client format)
         response = self.client.rerank(
             model=self.model,
             query=query,
             documents=doc_texts,
-            top_n=top_k,
-            return_documents=False
+            top_n=top_k
         )
         
         # Reorder documents based on rerank results

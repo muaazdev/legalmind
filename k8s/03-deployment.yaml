@@ -1,0 +1,116 @@
+# ============================================
+# Deployment: legalmind-api
+# Main application deployment with:
+# - Resource limits/requests
+# - Health probes (liveness + readiness)
+# - Environment from ConfigMap and Secrets
+# ============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legalmind-api
+  namespace: legalmind
+  labels:
+    app: legalmind
+    component: api
+spec:
+  replicas: 2  # Start with 2 replicas for HA
+  selector:
+    matchLabels:
+      app: legalmind
+      component: api
+  
+  # Rolling update strategy
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Can exceed desired replicas by 1
+      maxUnavailable: 0  # Always keep all replicas running during update
+  
+  template:
+    metadata:
+      labels:
+        app: legalmind
+        component: api
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+        - name: legalmind
+          image: gcr.io/legalmind-demo/legalmind:latest  # Replace PROJECT_ID
+          imagePullPolicy: Always
+          
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          
+          # Environment variables from ConfigMap
+          envFrom:
+            - configMapRef:
+                name: legalmind-config
+          
+          # Sensitive env vars from Secret
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: legalmind-secrets
+                  key: OPENAI_API_KEY
+            - name: COHERE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: legalmind-secrets
+                  key: COHERE_API_KEY
+          
+          # Resource limits and requests
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+          
+          # Liveness probe - is the container alive?
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 60    # Wait for app to start
+            periodSeconds: 30          # Check every 30s
+            timeoutSeconds: 10
+            failureThreshold: 3        # Restart after 3 failures
+          
+          # Readiness probe - is the container ready to serve traffic?
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8000
+            initialDelaySeconds: 30    # Wait for documents to index
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          
+          # Volume mounts for data persistence
+          volumeMounts:
+            - name: chroma-data
+              mountPath: /app/data/chroma_db
+      
+      # Volumes
+      volumes:
+        - name: chroma-data
+          emptyDir: {}  # Ephemeral storage (use PVC for production)
+      
+      # Pod anti-affinity for HA (spread across nodes)
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: legalmind
+                topologyKey: kubernetes.io/hostname

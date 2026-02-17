@@ -1,0 +1,10 @@
+.env
+.env.*
+__pycache__
+*.pyc
+.git
+.gitignore
+*.md
+k8s/
+venv/
+.venv/

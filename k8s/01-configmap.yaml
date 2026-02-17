@@ -1,0 +1,26 @@
+# ============================================
+# ConfigMap: legalmind-config
+# Non-sensitive configuration
+# ============================================
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: legalmind-config
+  namespace: legalmind
+  labels:
+    app: legalmind
+data:
+  # Application settings
+  LOG_LEVEL: "INFO"
+  PYTHONUNBUFFERED: "1"
+  
+  # RAG Configuration
+  CHUNK_SIZE: "512"
+  CHUNK_OVERLAP: "51"
+  RETRIEVAL_K: "20"
+  RERANK_K: "5"
+  
+  # Model settings
+  EMBEDDING_MODEL: "text-embedding-3-small"
+  LLM_MODEL: "gpt-4o-mini"
+  LLM_TEMPERATURE: "0.1"

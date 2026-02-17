@@ -6,23 +6,24 @@ langchain-chroma
 openai
 cohere
 
-# Vector Store & Embeddings
+# Vector Store
 chromadb
-sentence-transformers
 
 # BM25 for keyword search
 rank-bm25
 
 # Document Processing
 pypdf
-unstructured
 
-# Caching
-redis
-
-# Evaluation
-ragas
-deepeval
+# API Framework
+fastapi
+uvicorn
+click
+httptools
+watchfiles
+websockets
+typing_extensions
+starlette
 
 # Testing
 pytest

@@ -1,0 +1,57 @@
+# ============================================
+# HorizontalPodAutoscaler: legalmind-hpa
+# Automatically scales pods based on CPU/Memory
+# ============================================
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: legalmind-hpa
+  namespace: legalmind
+  labels:
+    app: legalmind
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: legalmind-api
+  
+  # Scaling bounds
+  minReplicas: 2   # Minimum for HA
+  maxReplicas: 10  # Maximum during high load
+  
+  # Scaling metrics
+  metrics:
+    # Scale based on CPU utilization
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70  # Scale up when CPU > 70%
+    
+    # Scale based on Memory utilization
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80  # Scale up when Memory > 80%
+  
+  # Scaling behavior
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300  # Wait 5 min before scaling down
+      policies:
+        - type: Percent
+          value: 50        # Scale down max 50% at a time
+          periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 60   # React quickly to load
+      policies:
+        - type: Percent
+          value: 100       # Can double pods if needed
+          periodSeconds: 60
+        - type: Pods
+          value: 4         # Or add up to 4 pods
+          periodSeconds: 60
+      selectPolicy: Max    # Use whichever allows more scaling

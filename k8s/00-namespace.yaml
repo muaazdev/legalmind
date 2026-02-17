@@ -1,0 +1,11 @@
+# ============================================
+# Namespace: legalmind
+# Isolates all LegalMind resources
+# ============================================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: legalmind
+  labels:
+    app: legalmind
+    environment: production
