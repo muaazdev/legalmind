@@ -226,24 +226,6 @@ gcloud container clusters delete legalmind-cluster --zone=me-central1-a
 
 ---
 
-## 🎤 Demo Talking Points
-
-When presenting to TCC interviewers:
-
-1. **Namespace Isolation**: "I've isolated the application in its own namespace for security and resource management"
-
-2. **ConfigMaps vs Secrets**: "Configuration is separated - non-sensitive settings in ConfigMap, API keys in encrypted Secrets"
-
-3. **Health Probes**: "Kubernetes automatically restarts unhealthy pods (liveness) and only routes traffic to ready pods (readiness)"
-
-4. **HPA**: "The system auto-scales from 2-10 pods based on CPU/memory, ensuring we handle load spikes while controlling costs"
-
-5. **Rolling Updates**: "Deployments use rolling updates with maxUnavailable: 0, ensuring zero downtime during releases"
-
-6. **Resource Limits**: "Each pod has defined resource requests and limits to prevent noisy neighbor issues"
-
----
-
 ## 🔗 API Endpoints
 
 | Endpoint | Method | Description |
